@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LibraryPro | Smart Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="p-4 text-center">
+        <h4 class="fw-bold text-primary"><i class="fa-solid fa-book-bookmark me-2"></i>LibraryPro</h4>
+    </div>
+    <nav class="mt-3">
+        <a class="nav-link active" id="link-books" onclick="showTab('booksTab')">
+            <i class="fa-solid fa-layer-group me-2"></i> Books Inventory
+        </a>
+        <a class="nav-link" id="link-members" onclick="showTab('membersTab')">
+            <i class="fa-solid fa-users me-2"></i> Library Members
+        </a>
+    </nav>
+</div>
+
+<div class="main-content">
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card stat-card border-start border-primary border-4 p-3 shadow-sm">
+                <small class="text-uppercase fw-bold text-muted">Total Books</small>
+                <h3 id="stat-total-books" class="mb-0 fw-bold">--</h3>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card stat-card border-start border-warning border-4 p-3 shadow-sm">
+                <small class="text-uppercase fw-bold text-muted">Books Issued</small>
+                <h3 id="stat-issued-books" class="mb-0 fw-bold">--</h3>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card stat-card border-start border-success border-4 p-3 shadow-sm">
+                <small class="text-uppercase fw-bold text-muted">Active Members</small>
+                <h3 id="stat-total-members" class="mb-0 fw-bold">--</h3>
+            </div>
+        </div>
+    </div>
+
+    <div id="booksTab" class="tab-content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold text-dark">Manage Books</h2>
+            <div class="d-flex gap-2">
+                <input type="text" id="bookSearch" class="form-control rounded-pill px-3" placeholder="Search title or author...">
+                <button class="btn btn-primary shadow-sm rounded-pill px-4 flex-shrink-0" data-bs-toggle="modal" data-bs-target="#addBookModal">
+                    <i class="fa fa-plus me-2"></i>Add Book
+                </button>
+            </div>
+        </div>
+        <div class="card border-0 shadow-sm overflow-hidden">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light text-primary">
+                        <tr>
+                            <th class="ps-4">Book Details</th>
+                            <th>Year</th>
+                            <th>Status</th>
+                            <th class="text-end pe-4">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="membersTab" class="tab-content d-none">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold text-dark">Library Members</h2>
+            <button class="btn btn-success shadow-sm rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#addMemberModal">
+                <i class="fa fa-user-plus me-2"></i>Add Member
+            </button>
+        </div>
+        <div class="card border-0 shadow-sm overflow-hidden">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="bg-light text-success">
+                    <tr>
+                        <th class="ps-4">ID</th>
+                        <th>Member Details</th>
+                        <th>Email Address</th>
+                        <th>Books Borrowed</th>
+                        <th class="text-end pe-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="memberTable"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addBookModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content border-0">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">New Book Entry</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="bookForm">
+                <div class="modal-body">
+                    <input type="text" id="title" class="form-control mb-3" placeholder="Book Title" required>
+                    <input type="text" id="author" class="form-control mb-3" placeholder="Author Name" required>
+                    <input type="number" id="year" class="form-control" placeholder="Publication Year" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary w-100">Save Book</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addMemberModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content border-0">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title">Member Registration</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="memberForm">
+                <div class="modal-body">
+                    <input type="text" id="mName" class="form-control mb-3" placeholder="Full Name" required>
+                    <input type="email" id="mEmail" class="form-control mb-3" placeholder="Email Address" required>
+                    <input type="tel" id="mPhone" class="form-control" placeholder="Phone Number" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success w-100">Register Member</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="issueBookModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content border-0">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title">Issue Book</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Assigning: <strong id="displayBookTitle" class="text-primary"></strong></p>
+                <input type="hidden" id="hiddenBookId">
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Select Registered Member</label>
+                    <select id="memberDropdown" class="form-select"></select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark w-100" onclick="submitIssue()">Confirm Issuance</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
