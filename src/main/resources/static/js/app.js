@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:8081/api";
+const API_BASE = "https://tall-kassey-sumanth87-4dcf6b1d.koyeb.app/api/books";
 
 document.addEventListener("DOMContentLoaded", () => {
     loadBooks();
